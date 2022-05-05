@@ -1,14 +1,14 @@
-import React from "react";
-import reactImg from "./images/react-img.jpg";
+import React, { Component } from "react";
+import { Auth } from "./pages";
 
-const App = () => {
-  return (
-    <div>
-      <div className="bg__img"></div>
-      <h1>123</h1>
-      <img src={reactImg} alt="React Img" width="250" />
-    </div>
-  );
-};
+export class App extends Component {
+  render() {
+    return (
+      <div className="wrapper">
+        <Auth />
+      </div>
+    );
+  }
+}
 
 export default App;
