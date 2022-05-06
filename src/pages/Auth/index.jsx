@@ -1,19 +1,18 @@
 import React from "react";
-import { UIButton, WhiteBlock } from "../../comoinents/UI";
+import { Route } from "react-router-dom";
 import styles from "./Auth.module.sass";
+import { LoginForm, RegistrationForm } from "../../modules";
+
 const Auth = () => {
   return (
     <section className={styles.auth}>
       <div>
-        <div className={styles.top}>
-          <h2>Log In</h2>
-          <p>Please log in your account</p>
-        </div>
-        <WhiteBlock className={styles.block}>
-          <UIButton type="primary" size="large">
-            Test Button
-          </UIButton>
-        </WhiteBlock>
+        <Route exact path={["/", "/login"]}>
+          <LoginForm />
+        </Route>
+        <Route path="/registration">
+          <RegistrationForm />
+        </Route>
       </div>
     </section>
   );
