@@ -111,7 +111,7 @@ const config = {
         // loader: 'file-loader'
       },
       {
-        test: /\.(ttf|eot|woff|woff2)$/,
+        test: /\.(ttf|eot|woff|mp3|woff2)$/,
         loader: "file-loader",
       },
     ],
