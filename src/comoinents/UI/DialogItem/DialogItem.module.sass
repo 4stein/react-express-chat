@@ -2,10 +2,12 @@
 
 .item
   display: flex
-  max-width: 300px
-  padding-left: 20px
-  padding-right: 20px
-  margin-top: 20px
+  max-width: 310px
+  padding: 10px 20px 10px
+  margin-bottom: 0px
+  cursor: pointer
+  &:hover, &.actibe
+    background-color: #F3F7FF
 .avatar
   flex: 0 0 40px
   width: 40px
@@ -19,7 +21,7 @@
   display: flex
   flex-direction: column
   justify-content: center
-  min-width: 255px
+  min-width: 230px
 .top
   display: flex
   justify-content: space-between
@@ -38,7 +40,7 @@
     margin-bottom: 0
     text-overflow: ellipsis
     overflow: hidden
-    width: 220px
+    width: 201px
     height: 1.2em
     white-space: nowrap
 .count

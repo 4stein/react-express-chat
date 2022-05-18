@@ -21,7 +21,6 @@ const Avatar = ({ user }) => {
       </div>
     );
   }
-  // <div className={classNames(styles.avatar)}>Avatar</div>;
 };
 
 Avatar.propTypes = {

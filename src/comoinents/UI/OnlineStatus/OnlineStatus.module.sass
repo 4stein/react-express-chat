@@ -1,0 +1,18 @@
+@import './src/styles/_variables.sass'
+
+.status
+  color: #bfbfbf
+  position: relative
+  &::before
+    position: absolute
+    top: 6px
+    left: 15px
+    display: block
+    content: ""
+    width: 6px
+    height: 6px
+    border-radius: 50%
+    background-color: #D3D3D3
+.online
+  &::before
+    background-color: #00c980

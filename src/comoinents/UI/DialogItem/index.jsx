@@ -6,16 +6,6 @@ import Time from "../Time";
 import MessageStatus from "../MessageStatus";
 import Avatar from "../Avatar";
 
-// const getAvatar = (user) => {
-//   console.log(generateAvararFromHash("d95b"))
-//   if (user.avatar) {
-//     return <img src={user.avatar} alt={`${user.fullname} avatar`} />;
-//   } else {
-//     return <img src="" alt={`${user.fullname} avatar`} />;
-//     // make avatar
-//   }
-// };
-
 const DialogItem = ({ user, text, isMe, isReaded, created_at, unreaded }) => (
   <div className={classNames(styles.item, { [styles.online]: user.isOnline })}>
     <div className={styles.avatar}>

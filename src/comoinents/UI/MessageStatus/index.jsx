@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import classNames from "classnames";
 import styles from "./MessageStatus.module.sass";
 import readSrc from "../../../images/read.png";
 import readedSrc from "../../../images/readed.png";
@@ -8,9 +9,17 @@ const MessageStatus = ({ isMe, isReaded }) => {
   return (
     <>
       {isMe && isReaded ? (
-        <img className={styles.checked} src={readedSrc} alt="read status" />
-      ) : isMe && isReaded === undefined || isReaded === false ? (
-        <img className={styles.checked} src={readSrc} alt="read status" />
+        <img
+          className={classNames(styles.checked, { [styles.isme]: isMe })}
+          src={readedSrc}
+          alt="read status"
+        />
+      ) : (isMe && isReaded === undefined) || isReaded === false ? (
+        <img
+          className={classNames(styles.checked, { [styles.isme]: isMe })}
+          src={readSrc}
+          alt="read status"
+        />
       ) : (
         ""
       )}
