@@ -43,12 +43,10 @@ const Message = ({
         setCurrentTime(0);
       });
     } else {
-      audioRef.current.pause();
+      audioRef.current?.pause();
     }
   }, [isPlaying]);
   // Handlers
-
-  console.log(progress, currentTime);
 
   return (
     <div
