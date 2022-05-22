@@ -1,0 +1,289 @@
+{
+  "dialogs": [
+    {
+      "_id": 0.44609760424075096,
+      "text": "Some text from message, Some text from message",
+      "isReaded": true,
+      "created_at": "2022-05-06T18:35:11.000Z",
+      "unreaded": 44,
+      "user": {
+        "_id": "pp4d",
+        "fullname": "Mr Doruchenko",
+        "avatar": "https://scontent-frx5-1.xx.fbcdn.net/v/t39.30808-1/244697508_1886106798217814_8643688549211563206_n.jpg?stp=c0.0.200.200a_dst-jpg_p200x200&_nc_cat=110&ccb=1-7&_nc_sid=7206a8&_nc_ohc=wIju1hwdf70AX_IgTvY&_nc_ht=scontent-frx5-1.xx&oh=00_AT8cod-kv6iMq2xJa_XqAZHbMGw23iTEaCkLwTX51_Pn7g&oe=628D597A",
+        "isOnline": true
+      }
+    },
+    {
+      "_id": 0.27322436268165395,
+      "text": "Some text from message, Some text from message",
+      "isReaded": false,
+      "created_at": "2022-05-20T12:59:08.759Z",
+      "unreaded": 44,
+      "user": {
+        "_id": "f4c1",
+        "fullname": "Username",
+        "avatar": null,
+        "isOnline": true
+      }
+    },
+    {
+      "_id": 0.25868862400246595,
+      "text": "Some text from message, Some text from message",
+      "isReaded": false,
+      "created_at": "2022-05-20T12:59:08.759Z",
+      "unreaded": 44,
+      "user": {
+        "_id": "a94k",
+        "fullname": "Kakah",
+        "avatar": null,
+        "isOnline": true
+      }
+    },
+    {
+      "_id": 0.7575777500096357,
+      "text": "Some text from message, Some text from message",
+      "isReaded": false,
+      "created_at": "2022-05-20T12:59:08.759Z",
+      "unreaded": 44,
+      "user": {
+        "_id": "f4c1",
+        "fullname": "Username",
+        "avatar": null,
+        "isOnline": true
+      }
+    },
+    {
+      "_id": 0.29801938660109184,
+      "text": "Some text from message, Some text from message",
+      "isReaded": false,
+      "created_at": "2022-05-20T12:59:08.759Z",
+      "unreaded": 44,
+      "user": {
+        "_id": "a94k",
+        "fullname": "Kakah",
+        "avatar": null,
+        "isOnline": true
+      }
+    },
+    {
+      "_id": 0.47098504992093515,
+      "text": "Some text from message, Some text from message",
+      "isReaded": false,
+      "created_at": "2022-05-20T12:59:08.759Z",
+      "unreaded": 44,
+      "user": {
+        "_id": "f4c1",
+        "fullname": "Username",
+        "avatar": null,
+        "isOnline": true
+      }
+    },
+    {
+      "_id": 0.26548426932705316,
+      "text": "Some text from message, Some text from message",
+      "isReaded": false,
+      "created_at": "2022-05-20T12:59:08.759Z",
+      "unreaded": 44,
+      "user": {
+        "_id": "a94k",
+        "fullname": "Kakah",
+        "avatar": null,
+        "isOnline": true
+      }
+    },
+    {
+      "_id": 0.24188351935429364,
+      "text": "Some text from message, Some text from message",
+      "isReaded": false,
+      "created_at": "2022-05-20T12:59:08.759Z",
+      "unreaded": 44,
+      "user": {
+        "_id": "f4c1",
+        "fullname": "Username",
+        "avatar": null,
+        "isOnline": true
+      }
+    },
+    {
+      "_id": 0.7774464753971881,
+      "text": "Some text from message, Some text from message",
+      "isReaded": false,
+      "created_at": "2022-05-20T12:59:08.759Z",
+      "unreaded": 44,
+      "user": {
+        "_id": "a94k",
+        "fullname": "Kakah",
+        "avatar": null,
+        "isOnline": true
+      }
+    },
+    {
+      "_id": 0.2353999347723863,
+      "text": "Some text from message, Some text from message",
+      "isReaded": false,
+      "created_at": "2022-05-20T12:59:08.759Z",
+      "unreaded": 44,
+      "user": {
+        "_id": "f4c1",
+        "fullname": "Username",
+        "avatar": null,
+        "isOnline": true
+      }
+    },
+    {
+      "_id": 0.16267321392864842,
+      "text": "Some text from message, Some text from message",
+      "isReaded": false,
+      "created_at": "2022-05-20T12:59:08.759Z",
+      "unreaded": 44,
+      "user": {
+        "_id": "a94k",
+        "fullname": "Kakah",
+        "avatar": null,
+        "isOnline": true
+      }
+    },
+    {
+      "_id": 0.7726840750134261,
+      "text": "Some text from message, Some text from message",
+      "isReaded": false,
+      "created_at": "2022-05-20T12:59:08.759Z",
+      "unreaded": 44,
+      "user": {
+        "_id": "f4c1",
+        "fullname": "Username",
+        "avatar": null,
+        "isOnline": true
+      }
+    },
+    {
+      "_id": 0.907685877849872,
+      "text": "Some text from message, Some text from message",
+      "isReaded": false,
+      "created_at": "2022-05-20T12:59:08.759Z",
+      "unreaded": 44,
+      "user": {
+        "_id": "a94k",
+        "fullname": "Kakah",
+        "avatar": null,
+        "isOnline": true
+      }
+    },
+    {
+      "_id": 0.8156859861925954,
+      "text": "Some text from message, Some text from message",
+      "isReaded": false,
+      "created_at": "2022-05-20T12:59:08.759Z",
+      "unreaded": 44,
+      "user": {
+        "_id": "a94k",
+        "fullname": "Kakah",
+        "avatar": null,
+        "isOnline": true
+      }
+    }
+  ],
+  "messages": [
+    {
+      "_id": 0.023556873116039823,
+      "avatar": "https://scontent-frx5-1.xx.fbcdn.net/v/t39.30808-1/244697508_1886106798217814_8643688549211563206_n.jpg?stp=c0.0.200.200a_dst-jpg_p200x200&_nc_cat=110&ccb=1-7&_nc_sid=7206a8&_nc_ohc=wIju1hwdf70AX_IgTvY&_nc_ht=scontent-frx5-1.xx&oh=00_AT8cod-kv6iMq2xJa_XqAZHbMGw23iTEaCkLwTX51_Pn7g&oe=628D597A",
+      "date": "2022-05-06T18:35:11.000Z",
+      "user": {
+        "fullname": "User1",
+        "_id": "dfdfh",
+        "avatar": null
+      },
+      "text": "Hello 🤓",
+      "dialog": 0.44609760424075096
+    },
+    {
+      "_id": 0.35585069543239856,
+      "avatar": "https://scontent-frx5-1.xx.fbcdn.net/v/t39.30808-1/244697508_1886106798217814_8643688549211563206_n.jpg?stp=c0.0.200.200a_dst-jpg_p200x200&_nc_cat=110&ccb=1-7&_nc_sid=7206a8&_nc_ohc=wIju1hwdf70AX_IgTvY&_nc_ht=scontent-frx5-1.xx&oh=00_AT8cod-kv6iMq2xJa_XqAZHbMGw23iTEaCkLwTX51_Pn7g&oe=628D597A",
+      "date": "2022-05-06T18:35:11.000Z",
+      "user": {
+        "fullname": "User1",
+        "_id": "dfdfh",
+        "avatar": null
+      },
+      "text": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos, temporibus.",
+      "dialog": 0.44609760424075096
+    },
+    {
+      "_id": 0.42921354667859446,
+      "avatar": "https://scontent-frx5-1.xx.fbcdn.net/v/t39.30808-1/244697508_1886106798217814_8643688549211563206_n.jpg?stp=c0.0.200.200a_dst-jpg_p200x200&_nc_cat=110&ccb=1-7&_nc_sid=7206a8&_nc_ohc=wIju1hwdf70AX_IgTvY&_nc_ht=scontent-frx5-1.xx&oh=00_AT8cod-kv6iMq2xJa_XqAZHbMGw23iTEaCkLwTX51_Pn7g&oe=628D597A",
+      "date": "2022-05-06T18:35:11.000Z",
+      "user": {
+        "fullname": "User1",
+        "_id": "dfdfh",
+        "avatar": null
+      },
+      "text": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos, temporibus.",
+      "attachments": [
+        {
+          "filename": "img.png",
+          "url": "https://source.unsplash.com/random/100x100/?nature"
+        },
+        {
+          "filename": "img.png",
+          "url": "https://source.unsplash.com/random/100x100/?nature"
+        }
+      ],
+      "dialog": 0.44609760424075096
+    },
+    {
+      "_id": 0.44316164010324455,
+      "avatar": "https://scontent-frx5-1.xx.fbcdn.net/v/t39.30808-1/244697508_1886106798217814_8643688549211563206_n.jpg?stp=c0.0.200.200a_dst-jpg_p200x200&_nc_cat=110&ccb=1-7&_nc_sid=7206a8&_nc_ohc=wIju1hwdf70AX_IgTvY&_nc_ht=scontent-frx5-1.xx&oh=00_AT8cod-kv6iMq2xJa_XqAZHbMGw23iTEaCkLwTX51_Pn7g&oe=628D597A",
+      "date": "2022-05-06T18:35:11.000Z",
+      "user": {
+        "fullname": "User1",
+        "_id": "dfdfh",
+        "avatar": null
+      },
+      "attachments": [
+        {
+          "filename": "img.png",
+          "url": "https://source.unsplash.com/random/100x100/?nature"
+        }
+      ],
+      "dialog": 0.44609760424075096
+    },
+    {
+      "_id": 0.40400832704996703,
+      "avatar": "https://scontent-frx5-1.xx.fbcdn.net/v/t39.30808-1/244697508_1886106798217814_8643688549211563206_n.jpg?stp=c0.0.200.200a_dst-jpg_p200x200&_nc_cat=110&ccb=1-7&_nc_sid=7206a8&_nc_ohc=wIju1hwdf70AX_IgTvY&_nc_ht=scontent-frx5-1.xx&oh=00_AT8cod-kv6iMq2xJa_XqAZHbMGw23iTEaCkLwTX51_Pn7g&oe=628D597A",
+      "date": "2022-05-06T18:35:11.000Z",
+      "user": {
+        "fullname": "User1",
+        "_id": "dfdfh",
+        "avatar": null
+      },
+      "audio": "https://cdns-preview-6.dzcdn.net/stream/c-60e88dfde1869340a9eeb6d924ef1b33-3.mp3",
+      "dialog": 0.44609760424075096
+    },
+    {
+      "_id": 0.08634054661613821,
+      "avatar": "https://scontent-frx5-1.xx.fbcdn.net/v/t39.30808-1/244697508_1886106798217814_8643688549211563206_n.jpg?stp=c0.0.200.200a_dst-jpg_p200x200&_nc_cat=110&ccb=1-7&_nc_sid=7206a8&_nc_ohc=wIju1hwdf70AX_IgTvY&_nc_ht=scontent-frx5-1.xx&oh=00_AT8cod-kv6iMq2xJa_XqAZHbMGw23iTEaCkLwTX51_Pn7g&oe=628D597A",
+      "date": "2022-05-06T18:35:11.000Z",
+      "user": {
+        "fullname": "Me",
+        "avatar": "https://scontent-frx5-1.xx.fbcdn.net/v/t39.30808-1/244697508_1886106798217814_8643688549211563206_n.jpg?stp=c0.0.200.200a_dst-jpg_p200x200&_nc_cat=110&ccb=1-7&_nc_sid=7206a8&_nc_ohc=wIju1hwdf70AX_IgTvY&_nc_ht=scontent-frx5-1.xx&oh=00_AT8cod-kv6iMq2xJa_XqAZHbMGw23iTEaCkLwTX51_Pn7g&oe=628D597A",
+        "_id": "dfdfh"
+      },
+      "text": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos, temporibus.",
+      "isMe": true,
+      "isReaded": true,
+      "dialog": 0.44609760424075096
+    },
+    {
+      "_id": 0.37082316707710605,
+      "avatar": "https://scontent-frx5-1.xx.fbcdn.net/v/t39.30808-1/244697508_1886106798217814_8643688549211563206_n.jpg?stp=c0.0.200.200a_dst-jpg_p200x200&_nc_cat=110&ccb=1-7&_nc_sid=7206a8&_nc_ohc=wIju1hwdf70AX_IgTvY&_nc_ht=scontent-frx5-1.xx&oh=00_AT8cod-kv6iMq2xJa_XqAZHbMGw23iTEaCkLwTX51_Pn7g&oe=628D597A",
+      "date": "2022-05-06T18:35:11.000Z",
+      "user": {
+        "fullname": "User1",
+        "_id": "dfdfh",
+        "avatar": null
+       },
+      "isTyping": true,
+      "dialog": 0.44609760424075096
+    }
+  ]
+}

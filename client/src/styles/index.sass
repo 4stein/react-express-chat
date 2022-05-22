@@ -1,0 +1,37 @@
+// antd
+@import 'antd/dist/antd.css'
+// variables
+@import './_variables.sass'
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap')
+
+*
+  outline: none
+
+body,
+html,
+#root,
+.wrapper
+  height: 100%
+  color: #202020
+
+html
+  overflow-y: hidden
+
+body
+  display: flex
+  flex-direction: column
+  color: $blue
+  font-family: 'Roboto', sans-serif
+  background-color: #F4F7FD
+
+.photos
+  overflow: visible !important
+  &:hover
+    button
+      opacity: 1 !important
+
+em-emoji-picker 
+  position: absolute
+  bottom: 50px
+  z-index: 1
