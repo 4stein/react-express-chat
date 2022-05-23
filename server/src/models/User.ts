@@ -1,6 +1,7 @@
 import mongoose, { Schema } from "mongoose";
 import validator from "validator";
 
+//TODO Last Visit as defoult
 const UserSchema = new Schema(
   {
     email: {
