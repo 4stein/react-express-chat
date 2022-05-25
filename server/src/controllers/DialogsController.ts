@@ -15,17 +15,7 @@ class DialogsController {
         }
         res.json(dialogs);
       });
-
-    // DialogsModel.find({ autor: autorId }, (err: any, dialogs: any) => {
-    //   if (err) {
-    //     return res.status(404).json({
-    //       message: "Dialogs not found",
-    //     });
-    //   }
-    //   res.json(dialogs);
-    // });
   }
-  // getMe() {}
   create(req: express.Request, res: express.Response) {
     const postData = {
       autor: req.body.autor,

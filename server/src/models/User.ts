@@ -1,5 +1,7 @@
 import mongoose, { Schema } from "mongoose";
 import validator from "validator";
+import { IUser } from "../types";
+import { generatePasswordHash } from "../utils";
 
 //TODO Last Visit as defoult
 const UserSchema = new Schema(
@@ -23,13 +25,32 @@ const UserSchema = new Schema(
     },
     avatar: String,
     confirm_hash: String,
-    last_seen: Date,
+    last_seen: {
+      type: Date,
+      default: new Date(),
+    },
   },
   {
     timestamps: true,
   }
 );
 
-const User = mongoose.model("User", UserSchema);
+UserSchema.set("toJSON", {
+  virtuals: true,
+});
+
+UserSchema.pre<IUser>("save", async function (next) {
+  // eslint-disable-next-line @typescript-eslint/no-this-alias
+  const user = this;
+
+  if (!user.isModified("password")) {
+    return next();
+  }
+
+  user.password = await generatePasswordHash(user.password);
+  user.confirm_hash = await generatePasswordHash(new Date().toString());
+});
+
+const User = mongoose.model<IUser>("User", UserSchema);
 
 export default User;
