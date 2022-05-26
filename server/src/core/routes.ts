@@ -1,4 +1,6 @@
+import express from "express";
 import bodyParser from "body-parser";
+import path from "path";
 import { RequestHandler } from "express";
 import {
   DialogsController,
@@ -14,9 +16,10 @@ const createRoutes = (app) => {
   app.use(updateLastSeen);
   app.use(checkAuth as RequestHandler);
 
-  // app.get("/", (req, res) => {
-  //   res.sendFile(__dirname + "../index.html");
-  // });
+  app.use(express.static(path.join(__dirname + "/")));
+  app.get("/", function (req, res) {
+    res.sendFile(path.join(__dirname, "../../index.html"));
+  });
   // User
   app.get("/user/me", UserController.me);
   app.get("/user/:id", UserController.index);
