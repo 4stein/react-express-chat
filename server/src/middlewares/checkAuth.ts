@@ -15,7 +15,7 @@ export default (
 
   verifyJWTToken(token)
     .then((user: any): any => {
-      req.user = user;
+      req.user = user.data._doc;
       next();
     })
     .catch((e): any => {

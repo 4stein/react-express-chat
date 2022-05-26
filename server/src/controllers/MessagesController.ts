@@ -15,8 +15,8 @@ class MessagesController {
         res.json(messages);
       });
   }
-  create(req: express.Request, res: express.Response) {
-    const userId = "628a64d604fb2cc1ea05ceca";
+  create(req: any, res: express.Response) {
+    const userId: String = req.user._id;
     const postData = {
       text: req.body.text,
       dialog: req.body.dialog_id,

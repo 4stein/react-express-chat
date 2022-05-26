@@ -12,13 +12,24 @@ class UserController {
     UserModel.findById(id, (err: any, user: any) => {
       if (err) {
         return res.status(404).json({
-          message: "Not found",
+          message: "User not found",
         });
       }
       res.json(user);
     });
   }
-  // getMe() {}
+  me(req: any, res: express.Response) {
+    console.log(req.user._id);
+    const id: string = req.user._id;
+    UserModel.findById(id, (err: any, user: any) => {
+      if (err) {
+        return res.status(404).json({
+          message: "User not found",
+        });
+      }
+      res.json(user);
+    });
+  }
   create(req: express.Request, res: express.Response) {
     const postData = {
       email: req.body.email,
@@ -53,7 +64,7 @@ class UserController {
     };
 
     const errors: Result<ValidationError> = validationResult(req);
-    console.log(postData.password)
+    console.log(postData.password);
     if (!errors.isEmpty()) {
       res.status(422).json({ errors: errors.array() });
     } else {
@@ -64,7 +75,6 @@ class UserController {
           });
         }
         if (bcrypt.compareSync(postData.password, user.password)) {
-          
           const token = createJWTToken(user);
           res.json({
             status: "success",
