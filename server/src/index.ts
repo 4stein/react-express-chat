@@ -1,25 +1,21 @@
 import express, { Express } from "express";
-import "./core/db";
+import connectDB from "./core/db";
 import dotenv from "dotenv";
 import createRoutes from "./core/routes";
+import createSocket from "./core/socket";
+
 // App
 const app: Express = express();
 // http
 const http = require("http").createServer(app);
-const io = require("socket.io")(http, {
-  cors: {
-    origin: "*",
-    methods: ["GET", "POST"],
-  },
-});
-dotenv.config();
-// Routes
-createRoutes(app);
 // Socket
-io.on("connection", (socket) => {
-  console.log("a user connected");
-  socket.emit("chat message", "test-test-test");
-});
+const io = createSocket(http);
+dotenv.config();
+// Connect DB
+connectDB();
+// Routes
+createRoutes(app, io);
+
 // Listen
 http.listen(process.env.PORT, () => {
   console.log(`Server starts on: http://localhost:${process.env.PORT}`);

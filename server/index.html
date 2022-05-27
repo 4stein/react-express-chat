@@ -30,7 +30,7 @@
     <script src="https://cdn.socket.io/4.5.0/socket.io.min.js"></script>
     <script>
       const socket = io("http://localhost:9999");
-      socket.on("chat message", (msg) => {
+      socket.on("SERVER:NEW_MESSAGE", (msg) => {
         console.log("message: " + msg);
       });
     </script>

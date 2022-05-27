@@ -1,8 +1,14 @@
 import express from "express";
+import io from "socket.io";
 import { DialogsModel, MessagesModel } from "../models";
 
 class DialogsController {
-  index(req: any, res: express.Response) {
+  io: io.Socket;
+  constructor(io: io.Socket) {
+    this.io = io;
+  }
+
+  index = (req: any, res: express.Response) => {
     const autorId: String = req.user._id;
 
     DialogsModel.find({ autor: autorId })
@@ -16,7 +22,7 @@ class DialogsController {
         res.json(dialogs);
       });
   }
-  create(req: express.Request, res: express.Response) {
+  create = (req: express.Request, res: express.Response) => {
     const postData = {
       autor: req.body.autor,
       partner: req.body.partner,
@@ -41,7 +47,7 @@ class DialogsController {
       })
       .catch((reason: any) => res.json(reason));
   }
-  delete(req: express.Request, res: express.Response) {
+  delete =(req: express.Request, res: express.Response) => {
     const id: string = req.params.id;
     DialogsModel.findByIdAndRemove(id, (err: any) => {
       if (err) {
