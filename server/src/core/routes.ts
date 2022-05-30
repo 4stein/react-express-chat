@@ -2,6 +2,7 @@ import express from "express";
 import bodyParser from "body-parser";
 import path from "path";
 import io from "socket.io";
+import cors from "cors";
 import { RequestHandler } from "express";
 import { Dialogs, Messages, User } from "../controllers";
 import { checkAuth, updateLastSeen } from "../middlewares";
@@ -10,8 +11,15 @@ import { loginValidation } from "../utils/validations";
 const createRoutes = (app, io: io.Socket) => {
   // parse application/json
   app.use(bodyParser.json());
-  app.use(updateLastSeen);
+  app.use(
+    cors({
+      origin: "*",
+      methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    })
+  );
   app.use(checkAuth as RequestHandler);
+  app.use(updateLastSeen);
+
 
   const UserController = new User(io);
   const DialogsController = new Dialogs(io);
@@ -26,7 +34,9 @@ const createRoutes = (app, io: io.Socket) => {
   app.get("/user/:id", UserController.index);
   app.delete("/user/:id", UserController.delete);
   app.post("/user/registration", UserController.create);
+  // app.get("/user/registration/verify", UserController.verify);
   app.post("/user/login", loginValidation, UserController.login);
+
   // Dialogs
   app.get("/dialogs", DialogsController.index);
   app.delete("/dialogs/:id", DialogsController.delete);

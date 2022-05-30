@@ -1,6 +1,6 @@
 import express from "express";
 import io from "socket.io";
-import { MessagesModel } from "../models";
+import { DialogsModel, MessagesModel } from "../models";
 
 class MessagesController {
   io: io.Socket;
@@ -38,6 +38,19 @@ class MessagesController {
               message: err,
             });
           }
+
+          DialogsModel.findOneAndUpdate(
+            { _id: postData.dialog },
+            { lastMessage: message._id },
+            { upsert: true },
+            (err) => {
+              return res.status(500).json({
+                status: "error",
+                message: err,
+              });
+            }
+          );
+
           res.json(message);
           this.io.emit("SERVER:NEW_MESSAGE", message);
         });

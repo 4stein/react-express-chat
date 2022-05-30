@@ -5,10 +5,10 @@ import styles from "./Avatar.module.sass";
 import { generateAvararFromHash } from "../../../utils";
 
 const Avatar = ({ user }) => {
-  if (user.avatar) {
+  if (user?.avatar) {
     return <img className={styles.avatar} src={user.avatar} alt={`${user.fullname} avatar`} />;
-  } else {
-    const { color, colorLighten } = generateAvararFromHash(user._id);
+  } else if(user?._id) {
+    const { color, colorLighten } = generateAvararFromHash(user?._id);
     const firstChar = user.fullname.charAt(0);
     return (
       <div
@@ -20,6 +20,8 @@ const Avatar = ({ user }) => {
         {firstChar}
       </div>
     );
+  } else {
+    return <div/>
   }
 };
 

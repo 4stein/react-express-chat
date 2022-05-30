@@ -5,21 +5,27 @@ import DialogItem from "../DialogItem";
 import orderBy from "lodash/orderBy";
 import { Empty } from "antd";
 
-const Dialogs = ({ items, userId }) => (
-  <div className={classNames(styles.dialogs)}>
-    {items && items.length ? (
-      orderBy(items, ["created_at"], ["desc"]).map((item) => (
-        <DialogItem
-          key={item._id}
-          user={item.user}
-          isMe={item.user._id === userId}
-          {...item}
+const Dialogs = ({ items, userId }) => {
+  
+  return (
+    <div className={classNames(styles.dialogs)}>
+      {items && items.length ? (
+        orderBy(items, ["created_at"], ["desc"]).map((item) => (
+          <DialogItem
+            key={item._id}
+            user={item.autor}
+            isMe={item.lastMessage.user?._id === userId}
+            {...item}
+          />
+        ))
+      ) : (
+        <Empty
+          image={Empty.PRESENTED_IMAGE_SIMPLE}
+          description="No dialogues"
         />
-      ))
-    ) : (
-      <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="No dialogues" />
-    )}
-  </div>
-);
+      )}
+    </div>
+  );
+};
 
 export default Dialogs;

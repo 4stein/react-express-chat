@@ -38,8 +38,9 @@ class UserController {
     const postData = {
       email: req.body.email,
       fullname: req.body.fullname,
-      password: req.body.password,
+      password: req.body.password2,
     };
+    console.log(postData);
     const user = new UserModel(postData);
     user
       .save()
@@ -61,6 +62,25 @@ class UserController {
       });
     });
   };
+  // verify = (req: any, res: express.Response) => {
+  //   const hash: string = req.query.hash;
+  //   if (!hash) {
+  //     return res.status(422).json({
+  //       message: "invalid hash",
+  //     });
+  //   }
+  //   UserModel.find({ confirm_hash: hash }, (err: any, user: any) => {
+  //     if (err || !user) {
+  //       return res.status(404).json({
+  //         message: "User not found",
+  //       });
+  //     }
+  //     res.json({
+  //       status: "seccess",
+  //       message: "Account successfully confirmedly",
+  //     });
+  //   });
+  // };
   login = (req: express.Request, res: express.Response): void => {
     const postData: { email: string; password: string } = {
       email: req.body.email,

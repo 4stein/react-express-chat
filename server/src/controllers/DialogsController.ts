@@ -13,7 +13,13 @@ class DialogsController {
 
     DialogsModel.find({ autor: autorId })
       .populate(["autor", "partner"])
-      .exec(function (err, dialogs) {
+      .populate({
+        path: "lastMessage",
+        populate: {
+          path: "user",
+        },
+      })
+      .exec((err, dialogs) => {
         if (err) {
           return res.status(404).json({
             message: "Dialogs not found",
@@ -21,7 +27,7 @@ class DialogsController {
         }
         res.json(dialogs);
       });
-  }
+  };
   create = (req: express.Request, res: express.Response) => {
     const postData = {
       autor: req.body.autor,
@@ -46,8 +52,8 @@ class DialogsController {
           .catch((reason: any) => res.json(reason));
       })
       .catch((reason: any) => res.json(reason));
-  }
-  delete =(req: express.Request, res: express.Response) => {
+  };
+  delete = (req: express.Request, res: express.Response) => {
     const id: string = req.params.id;
     DialogsModel.findByIdAndRemove(id, (err: any) => {
       if (err) {
@@ -59,7 +65,7 @@ class DialogsController {
         message: `Dialog deleted`,
       });
     });
-  }
+  };
 }
 
 export default DialogsController;

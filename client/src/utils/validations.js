@@ -8,11 +8,11 @@ export default ({ isAuth, values, errors }) => {
         errors.email = "Invalid email address";
       }
     },
-    user: (value) => {
+    fullname: (value) => {
       if (!value) {
-        errors.user = "Required";
+        errors.fullname = "Required";
       } else if (value.length < 3) {
-        errors.user = "Too short username";
+        errors.fullname = "Too short name";
       }
     },
     password: (value) => {

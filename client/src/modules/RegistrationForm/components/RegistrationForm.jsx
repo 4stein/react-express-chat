@@ -1,117 +1,89 @@
-import React, { Component } from "react";
-// import PropTypes from 'prop-types'
-import { Form, Input } from "antd";
-import {
-  UserOutlined,
-  MailOutlined,
-  LockOutlined,
-  InfoCircleOutlined,
-} from "@ant-design/icons";
-import styles from "./RegistrationForm.module.sass";
+import React, { useState } from "react";
+import { Form, Result } from "antd";
+import { UserOutlined, MailOutlined, LockOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
-import { UIButton, WhiteBlock } from "../../../comoinents/UI";
+
+import styles from "./RegistrationForm.module.sass";
+import history from "../../../utils/history";
+import { FormInput, UIButton, WhiteBlock } from "../../../comoinents/UI";
 
 const RegistrationForm = (props) => {
-  const success = true;
+  // useState
+  const [seccess, setSeccess] = useState(false);
+  // Props
   const { values, touched, errors, handleChange, handleBlur, handleSubmit } =
     props;
+  // Handlers
+  const onHandleSubmitHandler = () => {
+    handleSubmit();
+    setSeccess(true);
+  };
+  const onLoginHandler = () => {
+    history.push("/login");
+  };
   return (
     <div>
-      <div className={styles.top}>
-        <h2>Sign Up</h2>
-        <p>Please set uour account info</p>
-      </div>
+      {!seccess && (
+        <div className={styles.top}>
+          <h2>Sign Up</h2>
+          <p>Please set uour account info</p>
+        </div>
+      )}
       <WhiteBlock className={styles.block}>
-        {success ? (
+        {!seccess ? (
           <Form
             name="normal_login"
             className="login-form"
-            onFinish={handleSubmit}
+            onFinish={onHandleSubmitHandler}
           >
-            <Form.Item
-              validateStatus={
-                errors.email && touched.email ? "error" : "success"
-              }
-              help={
-                errors.email && touched.email && errors.email
-                  ? errors.email
-                  : null
-              }
-              hasFeedback
-            >
-              <Input
-                name="email"
-                type="email"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.email}
-                prefix={<MailOutlined />}
-                placeholder="Email"
-                size="large"
-              />
-            </Form.Item>
-            <Form.Item
-              validateStatus={errors.user && touched.user ? "error" : "success"}
-              help={
-                errors.user && touched.user && errors.user ? errors.user : null
-              }
-              hasFeedback
-            >
-              <Input
-                name="user"
-                type="text"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.user}
-                prefix={<UserOutlined className="site-form-item-icon" />}
-                placeholder="Name"
-                size="large"
-              />
-            </Form.Item>
-            <Form.Item
-              validateStatus={
-                errors.password1 && touched.password1 ? "error" : "success"
-              }
-              help={
-                errors.password1 && touched.password1 && errors.password1
-                  ? errors.password1
-                  : null
-              }
-              hasFeedback
-            >
-              <Input
-                name="password1"
-                type="password"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.password1}
-                prefix={<LockOutlined className="site-form-item-icon" />}
-                placeholder="Password"
-                size="large"
-              />
-            </Form.Item>
-            <Form.Item
-              validateStatus={
-                errors.password2 && touched.password2 ? "error" : "success"
-              }
-              help={
-                errors.password2 && touched.password2 && errors.password2
-                  ? errors.password2
-                  : null
-              }
-              hasFeedback
-            >
-              <Input
-                name="password2"
-                type="password"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.password2}
-                prefix={<LockOutlined className="site-form-item-icon" />}
-                placeholder="Password Confirm"
-                size="large"
-              />
-            </Form.Item>
+            <FormInput
+              name="email"
+              type="email"
+              placeholder="Email"
+              handleChange={handleChange}
+              handleBlur={handleBlur}
+              values={values}
+              errors={errors}
+              touched={touched}
+              size="large"
+              Icon={MailOutlined}
+            />
+            <FormInput
+              name="fullname"
+              type="text"
+              placeholder="User Fullname"
+              handleChange={handleChange}
+              handleBlur={handleBlur}
+              values={values}
+              errors={errors}
+              touched={touched}
+              size="large"
+              Icon={UserOutlined}
+            />
+            <FormInput
+              name="password1"
+              type="password"
+              placeholder="Password"
+              handleChange={handleChange}
+              handleBlur={handleBlur}
+              values={values}
+              errors={errors}
+              touched={touched}
+              size="large"
+              Icon={LockOutlined}
+            />
+            <FormInput
+              name="password2"
+              type="password"
+              placeholder="Confirm Password"
+              handleChange={handleChange}
+              handleBlur={handleBlur}
+              values={values}
+              errors={errors}
+              touched={touched}
+              size="large"
+              Icon={LockOutlined}
+            />
             <Form.Item>
               <UIButton
                 type="primary"
@@ -128,9 +100,24 @@ const RegistrationForm = (props) => {
           </Form>
         ) : (
           <div className={styles.success}>
-            <InfoCircleOutlined className={styles.info} />
-            <h2>Verify your account</h2>
-            <p>A confirmation message has been sent to your email.</p>
+            <Result
+              status="success"
+              title="Account created"
+              subTitle="Your account successfully created"
+              extra={
+                <UIButton
+                  type="primary"
+                  htmlType="button"
+                  className="login-form-button"
+                  size="large"
+                  onClick={() => {
+                    onLoginHandler();
+                  }}
+                >
+                  Log In
+                </UIButton>
+              }
+            />
           </div>
         )}
       </WhiteBlock>

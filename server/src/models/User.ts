@@ -1,4 +1,5 @@
 import mongoose, { Schema } from "mongoose";
+import { differenceInMinutes } from "date-fns";
 import validator from "validator";
 import { IUser } from "../types";
 import { generatePasswordHash } from "../utils";
@@ -35,6 +36,10 @@ const UserSchema = new Schema(
   }
 );
 
+UserSchema.virtual("isOnline").get(function (this: any) {
+  return differenceInMinutes(new Date(), this.last_seen) < 5;
+});
+
 UserSchema.set("toJSON", {
   virtuals: true,
 });
@@ -49,6 +54,7 @@ UserSchema.pre<IUser>("save", async function (next) {
 
   user.password = await generatePasswordHash(user.password);
   user.confirm_hash = await generatePasswordHash(new Date().toString());
+  next();
 });
 
 const User = mongoose.model<IUser>("User", UserSchema);

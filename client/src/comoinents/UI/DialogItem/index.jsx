@@ -11,43 +11,47 @@ import { dialogsActions } from "../../../redux/actions";
 const DialogItem = ({
   _id,
   user,
-  text,
   isMe,
   isReaded,
   created_at,
   unreaded,
+  lastMessage,
 }) => {
   // useSelector
-  const currentDialogId = useSelector(
-    (state) => state.dialogs.currentDialogId
-  );
+  const currentDialogId = useSelector((state) => state.dialogs.currentDialogId);
   // useDispatch
   const dispatch = useDispatch();
 
   return (
     <div
       className={classNames(styles.item, {
-        [styles.online]: user.isOnline,
+        [styles.online]: lastMessage.user?.isOnline,
         [styles.actibe]: currentDialogId === _id,
       })}
       onClick={() => dispatch(dialogsActions.setCurrentDialogId(_id))}
     >
       <div className={styles.avatar}>
-        <Avatar user={user} />
+        <Avatar user={lastMessage.user} />
       </div>
       <div className={styles.info}>
         <div className={styles.top}>
-          <p>{user.fullname}</p>
+          <p>{lastMessage.user?.fullname}</p>
           <span>
             {/* 13:50 */}
-            {created_at && <Time date={new Date(created_at)} />}
+            {lastMessage.createdAt && (
+              <Time date={new Date(lastMessage.createdAt)} />
+            )}
           </span>
         </div>
         <div className={styles.bottom}>
-          <p>{text}</p>
+          <p>{lastMessage.text}</p>
 
           {isMe ? (
-            <MessageStatus isMe={true} isReaded={isReaded} dialogs={true} />
+            <MessageStatus
+              isMe={true}
+              isReaded={lastMessage.unread}
+              dialogs={true}
+            />
           ) : (
             unreaded > 0 && (
               <div className={styles.count}>

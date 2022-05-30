@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import { Input } from "antd";
 import {
   TeamOutlined,
@@ -9,11 +10,14 @@ import styles from "./Chat.module.sass";
 import { ChatInput, OnlineStatus } from "../../UI";
 import { Dialogs, Messages } from "../../../containers";
 
-const userId = "pp4d";
+
 
 const Chat = () => {
+  // useState
   const [searchValue, setSearchValue] = useState("");
   const { Search } = Input;
+
+  const userId = useSelector((state) => state.user.user._id);
 
   return (
     <div className={styles.chat}>
