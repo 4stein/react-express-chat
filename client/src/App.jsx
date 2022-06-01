@@ -9,7 +9,7 @@ const App = () => {
   return (
     <div className="wrapper">
       <Switch>
-        <Route exact path={["/", "/login", "/registration", "/registration/verify"]}>
+        <Route exact path={["/", "/login", "/registration", "/registration/verify", "/dialog/:id"]}>
           {isAuth ? <Home /> : <Auth />}
         </Route>
         <Route path="/in">

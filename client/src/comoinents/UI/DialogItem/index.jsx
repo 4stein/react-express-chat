@@ -1,7 +1,7 @@
 import React from "react";
 import classNames from "classnames";
 import { useDispatch, useSelector } from "react-redux";
-
+import { useHistory } from "react-router-dom";
 import styles from "./DialogItem.module.sass";
 import Time from "../Time";
 import MessageStatus from "../MessageStatus";
@@ -21,14 +21,18 @@ const DialogItem = ({
   const currentDialogId = useSelector((state) => state.dialogs.currentDialogId);
   // useDispatch
   const dispatch = useDispatch();
-
+  // useHistory
+  let history = useHistory();
   return (
     <div
       className={classNames(styles.item, {
         [styles.online]: lastMessage.user?.isOnline,
         [styles.actibe]: currentDialogId === _id,
       })}
-      onClick={() => dispatch(dialogsActions.setCurrentDialogId(_id))}
+      onClick={() => {
+        dispatch(dialogsActions.setCurrentDialogId(_id));
+        history.push(`/dialog/${_id}`);
+      }}
     >
       <div className={styles.avatar}>
         <Avatar user={lastMessage.user} />

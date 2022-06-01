@@ -11,7 +11,7 @@ class MessagesController {
   index = (req: express.Request, res: express.Response) => {
     const dialogId: String = req.params.id;
     MessagesModel.find({ dialog: dialogId })
-      .populate(["dialog"])
+      .populate(["dialog", "user"])
       .exec(function (err, messages) {
         if (err) {
           return res.status(404).json({
