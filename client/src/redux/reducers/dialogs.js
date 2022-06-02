@@ -1,7 +1,7 @@
 //initialState
 let initialState = {
   items: [],
-  currentDialogId: null,
+  currentDialogId: window.location.pathname.split('/')[1],
 };
 //Reducer
 export default (state = initialState, { type, payload }) => {

@@ -8,10 +8,11 @@ class DialogsController {
     this.io = io;
   }
 
-  index = (req: any, res: express.Response) => {
-    const autorId: String = req.user._id;
+  index = (req: any, res: express.Response): void => {
+    const userId: String = req.user._id;
 
-    DialogsModel.find({ autor: autorId })
+    DialogsModel.find()
+      .or([{ author: userId }, { partner: userId }])
       .populate(["autor", "partner"])
       .populate({
         path: "lastMessage",
@@ -25,14 +26,15 @@ class DialogsController {
             message: "Dialogs not found",
           });
         }
-        res.json(dialogs);
+        return res.json(dialogs);
       });
   };
-  create = (req: express.Request, res: express.Response) => {
+  create = (req: any, res: express.Response) => {
     const postData = {
-      autor: req.body.autor,
+      autor: req.user._id,
       partner: req.body.partner,
     };
+    console.log(req);
     const dialogs = new DialogsModel(postData);
     dialogs
       .save()
@@ -45,8 +47,13 @@ class DialogsController {
         message
           .save()
           .then(() => {
-            res.json({
-              dialog: dialogObj,
+            dialogObj.lastMessage = message._id;
+            dialogObj.save().then(() => {
+              res.json(dialogObj);
+              this.io.emit("SERVER:DIALOG_CREATED", {
+                ...postData,
+                dialog: dialogObj,
+              });
             });
           })
           .catch((reason: any) => res.json(reason));

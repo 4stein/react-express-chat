@@ -13,7 +13,7 @@ const Dialogs = ({ items, userId }) => {
         orderBy(items, ["created_at"], ["desc"]).map((item) => (
           <DialogItem
             key={item._id}
-            user={item.autor}
+            user={item.lastMessage.user}
             isMe={item.lastMessage.user?._id === userId}
             {...item}
           />

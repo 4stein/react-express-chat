@@ -12,7 +12,7 @@ class MessagesController {
     const dialogId: String = req.params.id;
     MessagesModel.find({ dialog: dialogId })
       .populate(["dialog", "user"])
-      .exec(function (err, messages) {
+      .exec((err, messages) => {
         if (err) {
           return res.status(404).json({
             message: "Messages not found",
@@ -41,18 +41,17 @@ class MessagesController {
 
           DialogsModel.findOneAndUpdate(
             { _id: postData.dialog },
-            { lastMessage: message._id },
-            { upsert: true },
-            (err) => {
-              return res.status(500).json({
-                status: "error",
-                message: err,
-              });
-            }
+            { lastMessage: message._id }
+            // ,(err: any) => {
+            //   return res.status(500).json({
+            //     status: "error",
+            //     message: err,
+            //   });
+            // }
           );
 
           res.json(message);
-          this.io.emit("SERVER:NEW_MESSAGE", message);
+          this.io.emit("SERVER:MESSAGE_CREATED", message);
         });
       })
       .catch((reason: any) => res.json(reason));

@@ -31,7 +31,7 @@ const DialogItem = ({
       })}
       onClick={() => {
         dispatch(dialogsActions.setCurrentDialogId(_id));
-        history.push(`/dialog/${_id}`);
+        history.push(`/${_id}`);
       }}
     >
       <div className={styles.avatar}>
@@ -57,9 +57,9 @@ const DialogItem = ({
               dialogs={true}
             />
           ) : (
-            unreaded > 0 && (
+            lastMessage.unreaded > 0 && (
               <div className={styles.count}>
-                {unreaded > 9 ? "+9" : unreaded}
+                {lastMessage.unreaded > 9 ? "+9" : lastMessage.unreaded}
               </div>
             )
           )}

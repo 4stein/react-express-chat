@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { dialogsActions } from "../../redux/actions";
 import { Dialogs as BaseDialogs } from "../../comoinents/UI";
 import { useDispatch, useSelector } from "react-redux";
+import { socket } from "../../core";
 
 const Dialogs = ({ userId, searchValue }) => {
   // useState
@@ -17,6 +18,11 @@ const Dialogs = ({ userId, searchValue }) => {
   }, [items]);
   useEffect(() => {
     dispatch(dialogsActions.fetchDialogs());
+    // socket
+    socket.on("SERVER:DIALOG_CREATED", (data) => {
+      dispatch(dialogsActions.fetchDialogs());
+      console.log("dialog created", data);
+    })
   }, []);
   useEffect(() => {
     setFiltered(items);
@@ -34,6 +40,7 @@ const Dialogs = ({ userId, searchValue }) => {
       ]);
     }
   }, [isSearch]);
+
 
   return <BaseDialogs items={filtered} userId={userId} />;
 };
