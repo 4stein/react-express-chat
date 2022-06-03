@@ -10,14 +10,34 @@ import styles from "./Chat.module.sass";
 import { ChatInput, OnlineStatus } from "../../UI";
 import { Dialogs, Messages } from "../../../containers";
 
-
-
 const Chat = () => {
   // useState
   const [searchValue, setSearchValue] = useState("");
   const { Search } = Input;
-
+  const [fullname, setFullname] = useState("");
+  // useSelector
+  const user = useSelector((state) => state.user.user);
+  const items = useSelector((state) => state.dialogs.items);
+  const currentDialogId = useSelector((state) => state.dialogs.currentDialogId);
   const userId = useSelector((state) => state.user.user._id);
+  // useEffect
+  useEffect(() => {
+    if (
+      currentDialogObj &&
+      currentDialogObj.autor !== undefined &&
+      currentDialogObj.partner !== undefined
+    ) {
+      if (currentDialogObj.autor._id === user._id) {
+        setFullname(currentDialogObj.partner.fullname);
+      } else {
+        setFullname(currentDialogObj.autor.fullname);
+      }
+    }
+  }, [user, items, currentDialogId]);
+  // consts
+  const currentDialogObj = items.filter(
+    (dialog) => dialog._id === currentDialogId
+  )[0];
 
   return (
     <div className={styles.chat}>
@@ -46,9 +66,13 @@ const Chat = () => {
           <div className={styles.dialogHeader}>
             <div />
             <div className={styles.dialogHeaderCenter}>
-              <div className={styles.dialogHeaderName}>Mr Doruchenko</div>
+              <div className={styles.dialogHeaderName}>{fullname}</div>
               <div className={styles.dialogHeaderStatus}>
-                <OnlineStatus online={true} />
+                <OnlineStatus
+                  user={user}
+                  items={items}
+                  currentDialogId={currentDialogId}
+                />
               </div>
             </div>
             <EllipsisOutlined style={{ fontSize: "22px", cursor: "pointer" }} />

@@ -40,7 +40,6 @@ class UserController {
       fullname: req.body.fullname,
       password: req.body.password2,
     };
-    console.log(postData);
     const user = new UserModel(postData);
     user
       .save()

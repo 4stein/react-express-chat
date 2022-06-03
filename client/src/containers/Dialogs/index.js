@@ -12,17 +12,20 @@ const Dialogs = ({ userId, searchValue }) => {
   const items = useSelector((state) => state.dialogs.items);
   // useDispatch
   const dispatch = useDispatch();
+  // handlers
+  const onNewDialog = () => {
+    dispatch(dialogsActions.fetchDialogs());
+  }
   // useEffect
   useEffect(() => {
     setFiltered(items);
   }, [items]);
   useEffect(() => {
     dispatch(dialogsActions.fetchDialogs());
+    
     // socket
-    socket.on("SERVER:DIALOG_CREATED", (data) => {
-      dispatch(dialogsActions.fetchDialogs());
-      console.log("dialog created", data);
-    })
+    socket.on("SERVER:DIALOG_CREATED", onNewDialog)
+    return () => socket.removeListener("SERVER:DIALOG_CREATED", onNewDialog)
   }, []);
   useEffect(() => {
     setFiltered(items);

@@ -34,7 +34,6 @@ class DialogsController {
       autor: req.user._id,
       partner: req.body.partner,
     };
-    console.log(req);
     const dialogs = new DialogsModel(postData);
     dialogs
       .save()

@@ -32,7 +32,7 @@ class MessagesController {
     messages
       .save()
       .then((obj: any) => {
-        obj.populate(["dialog"], (err: any, message: any) => {
+        obj.populate(["dialog", "user"], (err: any, message: any) => {
           if (err) {
             return res.status(404).json({
               message: err,

@@ -13,7 +13,6 @@ import Avatar from "../Avatar";
 // import classNames from "classnames";
 
 const Message = ({
-  avatar,
   user,
   text,
   date,

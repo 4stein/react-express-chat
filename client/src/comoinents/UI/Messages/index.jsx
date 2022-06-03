@@ -4,14 +4,16 @@ import styles from "./Messages.module.sass";
 import { Empty, Spin } from "antd";
 import Message from "../Message";
 
-const Messages = ({ messagesRef, items, isLoading }) => (
+const Messages = ({ messagesRef, items, isLoading, user }) => (
   <div ref={messagesRef} className={classNames(styles.messages)}>
     {isLoading ? (
       <div className={styles.nomessages}>
         <Spin tip="Loading..." />
       </div>
     ) : items && items.length ? (
-      items.map((item) => <Message key={item._id} {...item} />)
+      items.map((item) => (
+        <Message key={item._id} {...item} isMe={user._id === item.user._id} />
+      ))
     ) : (
       <Empty
         className={styles.nomessages}
