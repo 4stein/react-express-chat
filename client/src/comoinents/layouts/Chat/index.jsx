@@ -1,25 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { Input } from "antd";
-import {
-  TeamOutlined,
-  FormOutlined,
-  EllipsisOutlined,
-} from "@ant-design/icons";
+import { EllipsisOutlined } from "@ant-design/icons";
 import styles from "./Chat.module.sass";
-import { ChatInput, OnlineStatus } from "../../UI";
-import { Dialogs, Messages } from "../../../containers";
+import { ChatInput, OnlineStatus, Sidebar } from "../../UI";
+import { Messages } from "../../../containers";
 
 const Chat = () => {
-  // useState
-  const [searchValue, setSearchValue] = useState("");
-  const { Search } = Input;
   const [fullname, setFullname] = useState("");
   // useSelector
   const user = useSelector((state) => state.user.user);
   const items = useSelector((state) => state.dialogs.items);
   const currentDialogId = useSelector((state) => state.dialogs.currentDialogId);
-  const userId = useSelector((state) => state.user.user._id);
   // useEffect
   useEffect(() => {
     if (
@@ -41,26 +32,7 @@ const Chat = () => {
 
   return (
     <div className={styles.chat}>
-      <div className={styles.sidebar}>
-        <div className={styles.sidebarHeader}>
-          <div>
-            <TeamOutlined /> <p>List of dialogues</p>
-          </div>
-          <div>
-            <FormOutlined style={{ cursor: "pointer" }} />
-          </div>
-        </div>
-        <div className={styles.sidebarSearch}>
-          <Search
-            placeholder="input search text"
-            onSearch={(value) => setSearchValue(value)}
-          />
-        </div>
-        <div className={styles.sidebarDialogs}>
-          <Dialogs userId={userId} searchValue={searchValue} />
-        </div>
-      </div>
-
+      <Sidebar />
       <div className={styles.dialog}>
         <div>
           <div className={styles.dialogHeader}>

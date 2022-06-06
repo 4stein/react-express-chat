@@ -1,4 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
+import { Popover } from "antd";
+import { EllipsisOutlined } from "@ant-design/icons";
 import styles from "./Message.module.sass";
 import PropTypes from "prop-types";
 import classNames from "classnames";
@@ -9,10 +11,13 @@ import playSrc from "../../../images/play.svg";
 import pauseSrc from "../../../images/pause.svg";
 import convertCurrentTime from "../../../utils/convertCurrentTime";
 import Avatar from "../Avatar";
+import { useDispatch } from "react-redux";
+import { messagesActions } from "../../../redux/actions";
 
 // import classNames from "classnames";
 
 const Message = ({
+  _id,
   user,
   text,
   date,
@@ -26,6 +31,8 @@ const Message = ({
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
+  // useDispatch
+  const dispatch = useDispatch();
   // useRef
   const audioRef = useRef();
   // useEffect
@@ -47,6 +54,7 @@ const Message = ({
     }
   }, [isPlaying]);
   // Handlers
+  const removeMessage = (id) => dispatch(messagesActions.removeMessageById(id));
 
   return (
     <div
@@ -62,7 +70,20 @@ const Message = ({
       </div>
       <div className={styles.textbox}>
         <MessageStatus isMe={isMe} isReaded={isReaded} />
-
+        <Popover
+          placement="bottomLeft"
+          title={<span>Title</span>}
+          content={
+            <div>
+              <button onClick={() => removeMessage(_id)}>Remove message</button>
+            </div>
+          }
+          trigger="click"
+        >
+          <div className={styles.messagePopover}>
+            <EllipsisOutlined />
+          </div>
+        </Popover>
         {(audio || text) && (
           <div className={styles.bubble}>
             {!audio && text && <p className={styles.text}>{text}</p>}

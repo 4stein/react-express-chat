@@ -36,7 +36,7 @@ const Dialogs = ({ userId, searchValue }) => {
       setFiltered([
         ...filtered.filter(
           (dialog) =>
-            dialog.user.fullname
+            dialog.partner.fullname
               .toLowerCase()
               .indexOf(searchValue.toLowerCase()) >= 0
         ),

@@ -4,6 +4,18 @@
   display: flex
   max-width: 440px
   margin-bottom: 20px
+  &Popover
+    cursor: pointer
+    position: absolute
+    right: 5px
+    top: 3px
+    transform: rotate(90deg)
+    color: #fff
+    display: none
+  &:hover
+    .messagePopover
+      display: block
+
 .avatar
   display: flex
   flex-direction: column-reverse
@@ -75,6 +87,9 @@
       bottom: 11px
   .typingin
     border-radius: 12px 12px 0 12px
+  .message
+    &Popover
+      color: #444
 .message.isme
   max-width: 100%
 .istyping

@@ -19,6 +19,10 @@ const actions = {
     return authApi.isMe().then(({ data }) => {
       dispatch(actions.checkUser(data));
     });
+    // .catch((e) => {
+    //   console.log(e);
+    //   localStorage.removeItem("token");
+    // })
   },
   fetchLogin: (postData) => (dispatch) => {
     return authApi.login(postData).then(({ data }) => {

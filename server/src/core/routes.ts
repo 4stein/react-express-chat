@@ -20,7 +20,6 @@ const createRoutes = (app, io: io.Socket) => {
   app.use(checkAuth as RequestHandler);
   app.use(updateLastSeen);
 
-
   const UserController = new User(io);
   const DialogsController = new Dialogs(io);
   const MessagesController = new Messages(io);
@@ -31,6 +30,7 @@ const createRoutes = (app, io: io.Socket) => {
   });
   // User
   app.get("/user/me", UserController.me);
+  app.get("/user/find", UserController.findUsers);
   app.get("/user/:id", UserController.index);
   app.delete("/user/:id", UserController.delete);
   app.post("/user/registration", UserController.create);
