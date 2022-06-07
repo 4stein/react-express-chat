@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { EllipsisOutlined } from "@ant-design/icons";
 import styles from "./Chat.module.sass";
 import { ChatInput, OnlineStatus, Sidebar } from "../../UI";
 import { Messages } from "../../../containers";
@@ -47,7 +46,7 @@ const Chat = () => {
                 />
               </div>
             </div>
-            <EllipsisOutlined style={{ fontSize: "22px", cursor: "pointer" }} />
+            <div/>
           </div>
           <Messages />
         </div>

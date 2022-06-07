@@ -25,7 +25,11 @@ const Dialogs = ({ userId, searchValue }) => {
     
     // socket
     socket.on("SERVER:DIALOG_CREATED", onNewDialog)
-    return () => socket.removeListener("SERVER:DIALOG_CREATED", onNewDialog)
+    socket.on("SERVER:MESSAGE_CREATED", onNewDialog)
+    return () => {
+      socket.removeListener("SERVER:DIALOG_CREATED", onNewDialog)
+      socket.removeListener("SERVER:MESSAGE_CREATED", onNewDialog)
+    }
   }, []);
   useEffect(() => {
     setFiltered(items);

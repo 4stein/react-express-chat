@@ -38,7 +38,7 @@
     "classnames": "^2.3.1",
     "core-js": "^3.22.2",
     "data-fns": "^0.1.8",
-    "emoji-mart": "^5.0.0",
+    "emoji-picker-react": "^3.5.1",
     "formik": "^2.2.9",
     "history": "^4.10.1",
     "lodash": "^4.17.21",

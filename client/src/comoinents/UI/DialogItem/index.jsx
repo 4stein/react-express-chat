@@ -15,18 +15,25 @@ const DialogItem = ({
   isReaded,
   created_at,
   unreaded,
+  partner,
+  autor,
   lastMessage,
 }) => {
   // useSelector
   const currentDialogId = useSelector((state) => state.dialogs.currentDialogId);
+  const userId = useSelector((state) => state.user.user._id);
   // useDispatch
   const dispatch = useDispatch();
   // useHistory
   let history = useHistory();
+
+  console.log(lastMessage)
+
   return (
     <div
       className={classNames(styles.item, {
-        [styles.online]: lastMessage.user?.isOnline,
+        [styles.online]:
+          autor._id === userId ? partner?.isOnline : autor.isOnline,
         [styles.actibe]: currentDialogId === _id,
       })}
       onClick={() => {
@@ -35,11 +42,11 @@ const DialogItem = ({
       }}
     >
       <div className={styles.avatar}>
-        <Avatar user={lastMessage.user} />
+        <Avatar user={autor._id === userId ? partner : autor} />
       </div>
       <div className={styles.info}>
         <div className={styles.top}>
-          <p>{lastMessage.user?.fullname}</p>
+          <p>{autor._id === userId ? partner?.fullname : autor?.fullname}</p>
           <span>
             {/* 13:50 */}
             {lastMessage.createdAt && (

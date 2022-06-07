@@ -25,18 +25,20 @@ const actions = {
     payload: bool,
   }),
   removeMessageById: (id) => (dispatch) => {
-    messagesApi
-      .removeById(id)
-      .then(() => {
-        dispatch({
-          type: "MESSAGES:REMOVE_MESSAGE",
-          payload: id,
+    if (window.confirm("Are you sure you want to delete the message?")) {
+      messagesApi
+        .removeById(id)
+        .then(() => {
+          dispatch({
+            type: "MESSAGES:REMOVE_MESSAGE",
+            payload: id,
+          });
+        })
+        .catch((e) => {
+          console.log(e);
+          dispatch(actions.setIsLoading(false));
         });
-      })
-      .catch((e) => {
-        console.log(e);
-        dispatch(actions.setIsLoading(false));
-      });
+    }
   },
   fetchMessages: (dialogId) => (dispatch) => {
     dispatch(actions.setIsLoading(true));
