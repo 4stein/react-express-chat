@@ -11,3 +11,4 @@ export { default as ChatInput } from "./ChatInput/";
 export { default as Messages } from "./Messages/";
 export { default as FormInput } from "./FormInput/";
 export { default as Sidebar } from "./Sidebar/";
+export { default as UploadFiles } from "./UploadFiles/";

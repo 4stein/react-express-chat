@@ -23,7 +23,7 @@ const Message = ({
   date,
   audio,
   isMe,
-  isReaded,
+  readed,
   attachments,
   isTyping,
 }) => {
@@ -69,7 +69,7 @@ const Message = ({
         <Avatar user={user} />
       </div>
       <div className={styles.textbox}>
-        <MessageStatus isMe={isMe} isReaded={isReaded} />
+        <MessageStatus isMe={isMe} isReaded={readed} />
         <Popover
           placement="bottomLeft"
           title={<span>Title</span>}
@@ -157,7 +157,7 @@ Message.propTypes = {
   date: PropTypes.string,
   attachments: PropTypes.array,
   isMe: PropTypes.bool,
-  isReaded: PropTypes.bool,
+  readed: PropTypes.bool,
   isTyping: PropTypes.bool,
   audio: PropTypes.string,
 };

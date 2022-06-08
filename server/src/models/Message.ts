@@ -10,7 +10,7 @@ export interface IMessages extends Document {
     ref: String;
     require: true;
   };
-  unread: {
+  readed: {
     type: Boolean;
     default: Boolean;
   };
@@ -23,7 +23,7 @@ const MessageSchema = new Schema(
     text: { type: String, require: Boolean },
     dialog: { type: Schema.Types.ObjectId, ref: "Dialogs", require: true },
     user: { type: Schema.Types.ObjectId, ref: "User", require: true },
-    unread: {
+    readed: {
       type: Boolean,
       default: false,
     },

@@ -14,7 +14,7 @@ const DialogItem = ({
   isMe,
   isReaded,
   created_at,
-  unreaded,
+  readed,
   partner,
   autor,
   lastMessage,
@@ -27,7 +27,7 @@ const DialogItem = ({
   // useHistory
   let history = useHistory();
 
-  console.log(lastMessage)
+  console.log(lastMessage);
 
   return (
     <div
@@ -60,15 +60,20 @@ const DialogItem = ({
           {isMe ? (
             <MessageStatus
               isMe={true}
-              isReaded={lastMessage.unread}
+              isReaded={lastMessage.readed}
               dialogs={true}
             />
           ) : (
-            lastMessage.unreaded > 0 && (
+            !lastMessage.readed && (
               <div className={styles.count}>
-                {lastMessage.unreaded > 9 ? "+9" : lastMessage.unreaded}
+                +1
               </div>
             )
+            // lastMessage.readed > 0 && (
+            //   <div className={styles.count}>
+            //     {lastMessage.readed > 9 ? "+9" : lastMessage.readed}
+            //   </div>
+            // )
           )}
         </div>
       </div>

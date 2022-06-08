@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import styles from "./Chat.module.sass";
-import { ChatInput, OnlineStatus, Sidebar } from "../../UI";
+import { ChatInput, OnlineStatus, Sidebar, UploadFiles } from "../../UI";
 import { Messages } from "../../../containers";
+import { Empty } from "antd";
 
 const Chat = () => {
   const [fullname, setFullname] = useState("");
@@ -32,28 +33,41 @@ const Chat = () => {
   return (
     <div className={styles.chat}>
       <Sidebar />
-      <div className={styles.dialog}>
-        <div>
-          <div className={styles.dialogHeader}>
-            <div />
-            <div className={styles.dialogHeaderCenter}>
-              <div className={styles.dialogHeaderName}>{fullname}</div>
-              <div className={styles.dialogHeaderStatus}>
-                <OnlineStatus
-                  user={user}
-                  items={items}
-                  currentDialogId={currentDialogId}
-                />
+      {currentDialogId ? (
+        <div className={styles.dialog}>
+          <div>
+            <div className={styles.dialogHeader}>
+              <div />
+              <div className={styles.dialogHeaderCenter}>
+                <div className={styles.dialogHeaderName}>{fullname}</div>
+                <div className={styles.dialogHeaderStatus}>
+                  <OnlineStatus
+                    user={user}
+                    items={items}
+                    currentDialogId={currentDialogId}
+                  />
+                </div>
               </div>
+              <div />
             </div>
-            <div/>
+            <Messages />
           </div>
-          <Messages />
+          <div>
+            <div className={styles.dialogTextarea}>
+              <ChatInput />
+            </div>
+            <div>
+              <UploadFiles />
+            </div>
+          </div>
         </div>
-        <div className={styles.dialogTextarea}>
-          <ChatInput />
-        </div>
-      </div>
+      ) : (
+        <Empty
+          className={styles.nomessagesBox}
+          image={Empty.PRESENTED_IMAGE_SIMPLE}
+          description="Choice dialog"
+        />
+      )}
     </div>
   );
 };

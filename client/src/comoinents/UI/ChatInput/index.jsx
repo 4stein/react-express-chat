@@ -14,6 +14,7 @@ import styles from "./ChatInput.module.sass";
 import { useDispatch, useSelector } from "react-redux";
 import { messagesActions } from "../../../redux/actions";
 import TextArea from "antd/lib/input/TextArea";
+import UploadFiles from "../UploadFiles";
 
 const ChatInput = () => {
   // useState
@@ -57,66 +58,70 @@ const ChatInput = () => {
   };
 
   return (
-    <div className={classNames(styles.input)}>
-      <div className={classNames(styles.smile)}>
-        <Button
-          type="link"
-          shape="circle"
-          
-        >
-          {emojiPickerVisible && (
-            <div className="emoji-box">
-              <Picker onEmojiClick={onEmojiClick} />
-            </div>
-          )}
-          <SmileOutlined style={{ fontSize: "18px", cursor: "pointer" }} onClick={() => setEmojiPickerVisible(!emojiPickerVisible)} />
-        </Button>
-      </div>
-      <TextArea
-        size="large"
-        placeholder="Write your message here"
-        onChange={(e) => setValue(e.target.value)}
-        onKeyUp={onSendMessage}
-        value={value}
-        autoSize={{ minRows: 1, maxRows: 6 }}
-      />
-      <div className={classNames(styles.actions)}>
-        <UploadField
-          onFiles={(files) => console.log(files)}
-          containerProps={{
-            className: "photos",
-          }}
-          uploadProps={{
-            accept: ".png,.jpg,.jpeg,.gif,.bmp",
-            multiple: "multiple",
-          }}
-        >
-          <Button type="link" shape="circle" style={{ cursor: "pointer" }}>
-            <CameraOutlined style={{ fontSize: "18px", cursor: "pointer" }} />
+    <>
+      <div className={classNames(styles.input)}>
+        <div className={classNames(styles.smile)}>
+          <Button type="link" shape="circle">
+            {emojiPickerVisible && (
+              <div className="emoji-box">
+                <Picker onEmojiClick={onEmojiClick} />
+              </div>
+            )}
+            <SmileOutlined
+              style={{ fontSize: "18px", cursor: "pointer" }}
+              onClick={() => setEmojiPickerVisible(!emojiPickerVisible)}
+            />
           </Button>
-        </UploadField>
-
-        {value.length ? (
-          <Button
-            type="link"
-            shape="circle"
-            onClick={() => {
-              dispatch(
-                messagesActions.fetchSendMessage(value, currentDialogId)
-              );
-              setEmojiPickerVisible(false);
-              setValue("");
+        </div>
+        <TextArea
+          size="large"
+          placeholder="Write your message here"
+          onChange={(e) => setValue(e.target.value)}
+          onKeyUp={onSendMessage}
+          value={value}
+          autoSize={{ minRows: 1, maxRows: 6 }}
+        />
+        <div className={classNames(styles.actions)}>
+          <UploadField
+            onFiles={(files) => console.log(files)}
+            containerProps={{
+              className: "photos",
+            }}
+            uploadProps={{
+              accept: ".png,.jpg,.jpeg,.gif,.bmp",
+              multiple: "multiple",
             }}
           >
-            <SendOutlined style={{ fontSize: "18px", cursor: "pointer" }} />
-          </Button>
-        ) : (
-          <Button type="link" shape="circle">
-            <AudioOutlined style={{ fontSize: "18px", cursor: "pointer" }} />
-          </Button>
-        )}
+            <Button type="link" shape="circle" style={{ cursor: "pointer" }}>
+              <CameraOutlined style={{ fontSize: "18px", cursor: "pointer" }} />
+            </Button>
+          </UploadField>
+
+          {value.length ? (
+            <Button
+              type="link"
+              shape="circle"
+              onClick={() => {
+                dispatch(
+                  messagesActions.fetchSendMessage(value, currentDialogId)
+                );
+                setEmojiPickerVisible(false);
+                setValue("");
+              }}
+            >
+              <SendOutlined style={{ fontSize: "18px", cursor: "pointer" }} />
+            </Button>
+          ) : (
+            <Button type="link" shape="circle">
+              <AudioOutlined style={{ fontSize: "18px", cursor: "pointer" }} />
+            </Button>
+          )}
+        </div>
       </div>
-    </div>
+      {/* <div>
+        <UploadFiles />
+      </div> */}
+    </>
   );
 };
 

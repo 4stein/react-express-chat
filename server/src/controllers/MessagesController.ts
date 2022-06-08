@@ -8,13 +8,42 @@ class MessagesController {
     this.io = io;
   }
 
-  index = (req: express.Request, res: express.Response) => {
-    const dialogId: String = req.params.id;
+  updateReadStatus = (
+    res: express.Response,
+    userId: string,
+    dialogId: string
+  ): void => {
+    MessagesModel.updateMany(
+      { dialog: dialogId, user: { $ne: userId } },
+      { $set: { readed: true } },
+      (err: any): void => {
+        if (err) {
+          res.status(500).json({
+            status: "error",
+            message: err,
+          });
+        } else {
+          this.io.emit("SERVER:MESSAGES_READED", {
+            userId,
+            dialogId,
+          });
+        }
+      }
+    );
+  };
+
+  index = (req: any, res: express.Response): void => {
+    const dialogId: string = req.params.id;
+    const userId: string = req.user._id;
+
+    this.updateReadStatus(res, userId, dialogId);
+
     MessagesModel.find({ dialog: dialogId })
       .populate(["dialog", "user"])
-      .exec((err, messages) => {
+      .exec(function (err, messages) {
         if (err) {
           return res.status(404).json({
+            status: "error",
             message: "Messages not found",
           });
         }
