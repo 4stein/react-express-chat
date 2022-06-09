@@ -8,7 +8,6 @@ class UploadController {
   create = (req: any, res: express.Response): void => {
     const userId: string = req.user._id;
     const file: any = req.file;
-
     cloudinary.v2.uploader
       .upload_stream(
         { resource_type: "auto" },
@@ -53,7 +52,8 @@ class UploadController {
   };
 
   delete = (req: any, res: express.Response): void => {
-    const fileId: string = req.user._id;
+    const fileId: string = req.params.id;
+    console.log(fileId);
     UploadFileModel.deleteOne({ _id: fileId }, function (err: any) {
       if (err) {
         return res.status(500).json({

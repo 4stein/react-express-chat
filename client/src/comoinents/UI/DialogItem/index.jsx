@@ -27,8 +27,6 @@ const DialogItem = ({
   // useHistory
   let history = useHistory();
 
-  console.log(lastMessage);
-
   return (
     <div
       className={classNames(styles.item, {

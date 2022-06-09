@@ -63,6 +63,7 @@ const Message = ({
         [styles.istyping]: isTyping,
         [styles.audiomessage]: audio,
         [styles.msimmage]: attachments && attachments.length === 1,
+        [styles.msimmages]: attachments && attachments.length > 1,
       })}
     >
       <div className={styles.avatar}>

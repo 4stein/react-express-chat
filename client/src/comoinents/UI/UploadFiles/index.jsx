@@ -1,6 +1,5 @@
-import { PlusOutlined } from "@ant-design/icons";
 import { Modal, Upload } from "antd";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const getBase64 = (file) =>
   new Promise((resolve, reject) => {
@@ -12,48 +11,15 @@ const getBase64 = (file) =>
     reader.onerror = (error) => reject(error);
   });
 
-const UploadFiles = () => {
+const UploadFiles = ({ attachments, setAttachments }) => {
   const [previewVisible, setPreviewVisible] = useState(false);
   const [previewImage, setPreviewImage] = useState("");
   const [previewTitle, setPreviewTitle] = useState("");
-  const [fileList, setFileList] = useState([
-    {
-      uid: "-1",
-      name: "image.png",
-      status: "done",
-      url: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
-    },
-    {
-      uid: "-2",
-      name: "image.png",
-      status: "done",
-      url: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
-    },
-    {
-      uid: "-3",
-      name: "image.png",
-      status: "done",
-      url: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
-    },
-    {
-      uid: "-4",
-      name: "image.png",
-      status: "done",
-      url: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
-    },
-    {
-      uid: "-xxx",
-      percent: 50,
-      name: "image.png",
-      status: "uploading",
-      url: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
-    },
-    {
-      uid: "-5",
-      name: "image.png",
-      status: "error",
-    },
-  ]);
+  const [fileList, setFileList] = useState([]);
+
+  useEffect(() => {
+    setFileList(attachments);
+  }, [attachments]);
 
   const handleCancel = () => setPreviewVisible(false);
 
@@ -71,7 +37,10 @@ const UploadFiles = () => {
 
   const handleChange = ({ fileList: newFileList }) => setFileList(newFileList);
 
-  
+  const onRemove = (toDelete) => {
+    setAttachments(attachments.filter((att) => att._id !== toDelete._id));
+  };
+
   return (
     <>
       <Upload
@@ -80,8 +49,8 @@ const UploadFiles = () => {
         fileList={fileList}
         onPreview={handlePreview}
         onChange={handleChange}
-      >
-      </Upload>
+        onRemove={onRemove}
+      ></Upload>
       <Modal
         visible={previewVisible}
         title={previewTitle}

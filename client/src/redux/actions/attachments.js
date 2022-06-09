@@ -12,7 +12,7 @@ const actions = {
   }),
 
   fetchFilesToServer: () => (dispatch) => {
-    attachmentsApi.saveFiles().then(({ data }) => {
+    attachmentsApi.upload().then(({ data }) => {
       dispatch(actions.setFiles(data));
     });
   },

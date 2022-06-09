@@ -24,10 +24,6 @@ const OnlineStatus = ({ user, items, currentDialogId }) => {
     }
   }, [user, items, currentDialogId]);
 
-  console.log(user)
-  console.log(items)
-  console.log(currentDialogId)
-
   return (
     <div className={classNames(styles.status, { [styles.online]: online })}>
       {online ? "Online" : "Ofline"}

@@ -1,12 +1,15 @@
-import mongoose, { Schema } from "mongoose";
-
+import mongoose from "mongoose";
+mongoose.plugin((schema: any) => {
+  schema.options.usePushEach = true;
+});
+const Schema = mongoose.Schema;
 export interface IMessages extends Document {
   text: {
     type: String;
     require: true;
   };
   dialog: {
-    type: Schema.Types.ObjectId;
+    type: any;
     ref: String;
     require: true;
   };
@@ -16,8 +19,6 @@ export interface IMessages extends Document {
   };
 }
 
-// TODO Make Attachments for files
-// attachments:
 const MessageSchema = new Schema(
   {
     text: { type: String, require: Boolean },
@@ -27,9 +28,11 @@ const MessageSchema = new Schema(
       type: Boolean,
       default: false,
     },
+    attachments: [{ type: Schema.Types.ObjectId, ref: "UploadFile" }],
   },
   {
     timestamps: true,
+    // usePushEach: true,
   }
 );
 

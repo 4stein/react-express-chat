@@ -1,6 +1,7 @@
 import express from "express";
 import io from "socket.io";
 import { DialogsModel, MessagesModel } from "../models";
+import { IMessages } from "../models/Message";
 
 class MessagesController {
   io: io.Socket;
@@ -39,7 +40,7 @@ class MessagesController {
     this.updateReadStatus(res, userId, dialogId);
 
     MessagesModel.find({ dialog: dialogId })
-      .populate(["dialog", "user"])
+      .populate(["dialog", "user", "attachments"])
       .exec(function (err, messages) {
         if (err) {
           return res.status(404).json({
@@ -50,20 +51,27 @@ class MessagesController {
         res.json(messages);
       });
   };
-  create = (req: any, res: express.Response) => {
-    const userId: String = req.user._id;
+  create = (req: any, res: express.Response): void => {
+    const userId: string = req.user._id;
+
     const postData = {
       text: req.body.text,
       dialog: req.body.dialog_id,
+      attachments: req.body.attachments,
       user: userId,
     };
-    const messages = new MessagesModel(postData);
-    messages
+
+    const message = new MessagesModel(postData);
+
+    this.updateReadStatus(res, userId, req.body.dialog_id);
+
+    message
       .save()
       .then((obj: any) => {
-        obj.populate(["dialog", "user"], (err: any, message: any) => {
+        obj.populate("dialog user attachments", (err: any, message: any) => {
           if (err) {
-            return res.status(404).json({
+            return res.status(500).json({
+              status: "error",
               message: err,
             });
           }
@@ -83,10 +91,13 @@ class MessagesController {
           );
 
           res.json(message);
+
           this.io.emit("SERVER:MESSAGE_CREATED", message);
         });
       })
-      .catch((reason: any) => res.json(reason));
+      .catch((reason) => {
+        res.json(reason);
+      });
   };
   delete = (req: any, res: express.Response): void => {
     const id: string = req.params.id;

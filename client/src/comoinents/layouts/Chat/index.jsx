@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import styles from "./Chat.module.sass";
-import { ChatInput, OnlineStatus, Sidebar, UploadFiles } from "../../UI";
+import { ChatInput, OnlineStatus, Sidebar } from "../../UI";
 import { Messages } from "../../../containers";
 import { Empty } from "antd";
 
@@ -53,12 +53,7 @@ const Chat = () => {
             <Messages />
           </div>
           <div>
-            <div className={styles.dialogTextarea}>
-              <ChatInput />
-            </div>
-            <div>
-              <UploadFiles />
-            </div>
+            <ChatInput />
           </div>
         </div>
       ) : (

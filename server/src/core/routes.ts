@@ -7,10 +7,11 @@ import { RequestHandler } from "express";
 import { Dialogs, Messages, User, UploadFile } from "../controllers";
 import { checkAuth, updateLastSeen } from "../middlewares";
 import { loginValidation } from "../utils/validations";
-import multer from "./multer";
+import uploader from "./multer";
 
 const createRoutes = (app, io: io.Socket) => {
   // parse application/json
+  app.use(bodyParser.urlencoded({extended: true}));
   app.use(bodyParser.json());
   app.use(
     cors({
@@ -47,8 +48,8 @@ const createRoutes = (app, io: io.Socket) => {
   app.post("/messages", MessagesController.create);
   app.delete("/messages/:id", MessagesController.delete);
   // Files
-  app.post("/files", multer.single("file"), UploadFileController.create);
-  app.delete("/files:id", UploadFileController.delete);
+  app.post("/files", uploader.single("file"), UploadFileController.create);
+  app.delete("/files/:id", UploadFileController.delete);
 };
 
 export default createRoutes;
