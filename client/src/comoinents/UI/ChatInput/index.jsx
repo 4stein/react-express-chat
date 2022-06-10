@@ -21,6 +21,8 @@ const ChatInput = () => {
   // useState
   const [value, setValue] = useState("");
   const [attachments, setAttachments] = useState([]);
+  const [isRecording, setIsRecording] = useState(false);
+  const [mediaRecorder, setMediaRecorder] = useState(null);
   const [emojiPickerVisible, setEmojiPickerVisible] = useState(false);
   const [chosenEmoji, setChosenEmoji] = useState(null);
   // useSelector
@@ -48,16 +50,20 @@ const ChatInput = () => {
   };
   const onSendMessage = (e) => {
     if (e.keyCode === 13) {
-      dispatch(
-        messagesActions.fetchSendMessage(
-          value,
-          currentDialogId,
-          attachments.map((att) => att._id)
-        )
-      );
-      setEmojiPickerVisible(false);
-      setValue("");
-      setAttachments([]);
+      if (isRecording) {
+        mediaRecorder.stop();
+      } else if (value || attachments.length) {
+        dispatch(
+          messagesActions.fetchSendMessage(
+            value,
+            currentDialogId,
+            attachments.map((att) => att._id)
+          )
+        );
+        setEmojiPickerVisible(false);
+        setValue("");
+        setAttachments([]);
+      }
     }
   };
   const handleOutsideClick = (el, e) => {
@@ -75,8 +81,50 @@ const ChatInput = () => {
     }
     setAttachments([...attachments, ...resFiles]);
   };
+  const onStopRecording = () => {
+    mediaRecorder.stop();
+  };
 
-  console.log(attachments);
+  window.navigator.getUserMedia =
+    window.navigator.getUserMedia ||
+    window.navigator.mozGetUserMedia ||
+    window.navigator.msGetUserMedia ||
+    window.navigator.webkitGetUserMedia;
+
+  const onRecord = () => {
+    if (navigator.getUserMedia) {
+      navigator.getUserMedia({ audio: true }, onRecording, onError);
+    }
+  };
+
+  const sendAudio = (audioId) => {
+    return dispatch(
+      messagesActions.fetchSendMessage(null, currentDialogId, [audioId])
+    );
+  };
+
+  const onRecording = (stream) => {
+    const recorder = new MediaRecorder(stream);
+    setMediaRecorder(recorder);
+    recorder.start();
+    recorder.onstart = () => {
+      setIsRecording(true);
+    };
+    recorder.onstop = () => {
+      setIsRecording(false);
+    };
+    recorder.ondataavailable = (e) => {
+      console.log("e", e.data);
+      const file = new File([e.data], "audio.webm");
+      attachmentsApi.upload(file).then(({ data }) => {
+        sendAudio(data.file._id);
+      });
+    };
+  };
+
+  const onError = (err) => {
+    console.log("The following error occured: " + err);
+  };
 
   return (
     <>
@@ -141,9 +189,17 @@ const ChatInput = () => {
                 <SendOutlined style={{ fontSize: "18px", cursor: "pointer" }} />
               </Button>
             ) : (
-              <Button type="link" shape="circle">
+              <Button
+                type="link"
+                shape="circle"
+                onMouseDown={onRecord}
+                onMouseUp={onStopRecording}
+              >
                 <AudioOutlined
                   style={{ fontSize: "18px", cursor: "pointer" }}
+                  className={classNames({
+                    [styles.isrecording]: isRecording,
+                  })}
                 />
               </Button>
             )}

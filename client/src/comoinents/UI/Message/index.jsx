@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Popover } from "antd";
+import { Popover, Button, Modal } from "antd";
 import { EllipsisOutlined } from "@ant-design/icons";
 import styles from "./Message.module.sass";
 import PropTypes from "prop-types";
@@ -31,6 +31,8 @@ const Message = ({
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [previewImage, setPreviewImage] = useState(null);
   // useDispatch
   const dispatch = useDispatch();
   // useRef
@@ -55,6 +57,9 @@ const Message = ({
   }, [isPlaying]);
   // Handlers
   const removeMessage = (id) => dispatch(messagesActions.removeMessageById(id));
+  const showImageModal = (e) => {
+    setPreviewImage(e.target.src);
+  };
 
   return (
     <div
@@ -73,10 +78,9 @@ const Message = ({
         <MessageStatus isMe={isMe} isReaded={readed} />
         <Popover
           placement="bottomLeft"
-          title={<span>Title</span>}
           content={
             <div>
-              <button onClick={() => removeMessage(_id)}>Remove message</button>
+              <Button onClick={() => removeMessage(_id)}>Remove message</Button>
             </div>
           }
           trigger="click"
@@ -85,39 +89,40 @@ const Message = ({
             <EllipsisOutlined />
           </div>
         </Popover>
-        {(audio || text) && (
+        {text ? (
           <div className={styles.bubble}>
-            {!audio && text && <p className={styles.text}>{text}</p>}
-            {audio && (
-              <div className={styles.audio}>
-                <audio ref={audioRef} src={audio} preload="auto" />
-                <div
-                  className={styles.audioprogress}
-                  style={{ width: progress + "%" }}
-                ></div>
-                <div className={styles.audioinfo}>
-                  <div className={styles.audiobtn}>
-                    <button
-                      onClick={() => {
-                        setIsPlaying(!isPlaying);
-                      }}
-                    >
-                      {isPlaying ? (
-                        <img src={pauseSrc} alt="play icon" />
-                      ) : (
-                        <img src={playSrc} alt="play icon" />
-                      )}
-                    </button>
-                  </div>
-                  <div className={styles.audiowave}>
-                    <img src={audiowave} alt="audio wave" />
-                  </div>
-                  <div className={styles.audioduration}>
-                    <span>{convertCurrentTime(currentTime)}</span>
-                  </div>
+            <p className={styles.text}>{text}</p>
+          </div>
+        ) : (
+          <div className={styles.bubble}>
+            <div className={styles.audio}>
+              <audio ref={audioRef} src={attachments[0].url} preload="auto" />
+              <div
+                className={styles.audioprogress}
+                style={{ width: progress + "%" }}
+              ></div>
+              <div className={styles.audioinfo}>
+                <div className={styles.audiobtn}>
+                  <button
+                    onClick={() => {
+                      setIsPlaying(!isPlaying);
+                    }}
+                  >
+                    {isPlaying ? (
+                      <img src={pauseSrc} alt="play icon" />
+                    ) : (
+                      <img src={playSrc} alt="play icon" />
+                    )}
+                  </button>
+                </div>
+                <div className={styles.audiowave}>
+                  <img src={audiowave} alt="audio wave" />
+                </div>
+                <div className={styles.audioduration}>
+                  <span>{convertCurrentTime(currentTime)}</span>
                 </div>
               </div>
-            )}
+            </div>
           </div>
         )}
 
@@ -128,11 +133,15 @@ const Message = ({
             <span></span>
           </div>
         )}
-        {attachments && (
+        {attachments && attachments[0]?.ext !== "webm" && (
           <div className={styles.attachments}>
             {attachments.map((attachment, index) => (
               <div key={index} className={styles.attachmentsitem}>
-                <img src={attachment.url} alt={attachment.fullname} />
+                <img
+                  src={attachment.url}
+                  alt={attachment.fullname}
+                  onClick={showImageModal}
+                />
               </div>
             ))}
           </div>
@@ -143,6 +152,13 @@ const Message = ({
           </span>
         )}
       </div>
+      <Modal
+        visible={previewImage}
+        footer={null}
+        onCancel={() => setPreviewImage(null)}
+      >
+        <img className={styles.previewImage} src={previewImage} alt="Preview" />
+      </Modal>
     </div>
   );
 };
