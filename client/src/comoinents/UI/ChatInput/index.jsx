@@ -16,8 +16,11 @@ import { messagesActions } from "../../../redux/actions";
 import TextArea from "antd/lib/input/TextArea";
 import UploadFiles from "../UploadFiles";
 import { attachmentsApi } from "../../../utils";
+import { socket } from "../../../core";
 
-const ChatInput = () => {
+const ChatInput = ({ setIsTyping }) => {
+  // vars
+  let isTypingInterval = null;
   // useState
   const [value, setValue] = useState("");
   const [attachments, setAttachments] = useState([]);
@@ -27,6 +30,7 @@ const ChatInput = () => {
   const [chosenEmoji, setChosenEmoji] = useState(null);
   // useSelector
   const currentDialogId = useSelector((state) => state.dialogs.currentDialogId);
+  const userId = useSelector((state) => state.user.user._id);
   // useDispatch
   const dispatch = useDispatch();
   // useEffect
@@ -35,8 +39,13 @@ const ChatInput = () => {
       "button.ant-btn.ant-btn-circle.ant-btn-link"
     );
     document.addEventListener("click", handleOutsideClick.bind(this, el));
+
+    // socket
+    socket.on("DYALOGS:TYPING", onTyping);
+
     return () => {
       document.removeEventListener("click", handleOutsideClick.bind(this, el));
+      socket.removeListener("DYALOGS:TYPING", onTyping);
     };
   }, []);
   useEffect(() => {
@@ -114,7 +123,6 @@ const ChatInput = () => {
       setIsRecording(false);
     };
     recorder.ondataavailable = (e) => {
-      console.log("e", e.data);
       const file = new File([e.data], "audio.webm");
       attachmentsApi.upload(file).then(({ data }) => {
         sendAudio(data.file._id);
@@ -124,6 +132,18 @@ const ChatInput = () => {
 
   const onError = (err) => {
     console.log("The following error occured: " + err);
+  };
+
+  const onKeyDownTyping = () => {
+    socket.emit("DYALOGS:TYPING", userId);
+  };
+
+  const onTyping = (data) => {
+    setIsTyping({ isTyping: true, userId: data });
+    clearInterval(isTypingInterval);
+    isTypingInterval = setTimeout(() => {
+      setIsTyping({ isTyping: false, userId: "" });
+    }, 5000);
   };
 
   return (
@@ -148,6 +168,7 @@ const ChatInput = () => {
             placeholder="Write your message here"
             onChange={(e) => setValue(e.target.value)}
             onKeyUp={onSendMessage}
+            onKeyDown={onKeyDownTyping}
             value={value}
             autoSize={{ minRows: 1, maxRows: 6 }}
           />

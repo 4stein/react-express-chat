@@ -6,7 +6,12 @@ import { Messages } from "../../../containers";
 import { Empty } from "antd";
 
 const Chat = () => {
-  const [fullname, setFullname] = useState("");
+  // useState
+  const [partner, setPartner] = useState({
+    isTyping: false,
+    userId: "",
+  });
+  const [isTyping, setIsTyping] = useState(false);
   // useSelector
   const user = useSelector((state) => state.user.user);
   const items = useSelector((state) => state.dialogs.items);
@@ -19,9 +24,9 @@ const Chat = () => {
       currentDialogObj.partner !== undefined
     ) {
       if (currentDialogObj.autor._id === user._id) {
-        setFullname(currentDialogObj.partner.fullname);
+        setPartner(currentDialogObj.partner);
       } else {
-        setFullname(currentDialogObj.autor.fullname);
+        setPartner(currentDialogObj.autor);
       }
     }
   }, [user, items, currentDialogId]);
@@ -39,7 +44,9 @@ const Chat = () => {
             <div className={styles.dialogHeader}>
               <div />
               <div className={styles.dialogHeaderCenter}>
-                <div className={styles.dialogHeaderName}>{fullname}</div>
+                <div className={styles.dialogHeaderName}>
+                  {partner.fullname}
+                </div>
                 <div className={styles.dialogHeaderStatus}>
                   <OnlineStatus
                     user={user}
@@ -50,10 +57,10 @@ const Chat = () => {
               </div>
               <div />
             </div>
-            <Messages />
+            <Messages isTyping={isTyping} partner={partner} />
           </div>
           <div>
-            <ChatInput />
+            <ChatInput setIsTyping={setIsTyping} />
           </div>
         </div>
       ) : (

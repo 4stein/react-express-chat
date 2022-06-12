@@ -21,7 +21,6 @@ const Message = ({
   user,
   text,
   date,
-  audio,
   isMe,
   readed,
   attachments,
@@ -31,7 +30,6 @@ const Message = ({
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
-  const [isModalVisible, setIsModalVisible] = useState(false);
   const [previewImage, setPreviewImage] = useState(null);
   // useDispatch
   const dispatch = useDispatch();
@@ -66,7 +64,6 @@ const Message = ({
       className={classNames(styles.message, {
         [styles.isme]: isMe,
         [styles.istyping]: isTyping,
-        [styles.audiomessage]: audio,
         [styles.msimmage]: attachments && attachments.length === 1,
         [styles.msimmages]: attachments && attachments.length > 1,
       })}
@@ -93,7 +90,7 @@ const Message = ({
           <div className={styles.bubble}>
             <p className={styles.text}>{text}</p>
           </div>
-        ) : (
+        ) : !isTyping ? (
           <div className={styles.bubble}>
             <div className={styles.audio}>
               <audio ref={audioRef} src={attachments[0].url} preload="auto" />
@@ -124,9 +121,11 @@ const Message = ({
               </div>
             </div>
           </div>
+        ) : (
+          ""
         )}
 
-        {!audio && isTyping && (
+        {isTyping && (
           <div className={styles.typingin}>
             <span></span>
             <span></span>

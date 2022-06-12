@@ -6,8 +6,10 @@ const createSocket = (http) => {
       methods: ["GET", "POST"],
     },
   });
-  io.on("connection", (socket) => {
-    
+  io.on("connection", (socket: any) => {
+    socket.on("DYALOGS:TYPING", (obj: any) => {
+      io.emit("DYALOGS:TYPING", obj);
+    });
   });
 
   return io;

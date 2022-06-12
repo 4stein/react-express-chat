@@ -53,7 +53,6 @@ class UploadController {
 
   delete = (req: any, res: express.Response): void => {
     const fileId: string = req.params.id;
-    console.log(fileId);
     UploadFileModel.deleteOne({ _id: fileId }, function (err: any) {
       if (err) {
         return res.status(500).json({

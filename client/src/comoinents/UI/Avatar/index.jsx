@@ -5,6 +5,7 @@ import styles from "./Avatar.module.sass";
 import { generateAvararFromHash } from "../../../utils";
 
 const Avatar = ({ user }) => {
+  // console.log(user)
   if (user?.avatar) {
     return <img className={styles.avatar} src={user.avatar} alt={`${user.fullname} avatar`} />;
   } else if(user?._id) {

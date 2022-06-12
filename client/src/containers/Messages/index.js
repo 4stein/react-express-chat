@@ -4,7 +4,7 @@ import { Messages as BaseMessages } from "../../comoinents/UI";
 import { connect } from "react-redux";
 import { socket } from "../../core";
 
-const Messages = ({ currentDialogId, fetchMessages, addMessage, items, isLoading, user }) => {
+const Messages = ({ currentDialogId, fetchMessages, addMessage, items, isLoading, user, isTyping, partner }) => {
   const messagesRef = useRef();
 
   const onNewMessage = (data) => {
@@ -35,6 +35,8 @@ const Messages = ({ currentDialogId, fetchMessages, addMessage, items, isLoading
       items={items}
       user={user}
       isLoading={isLoading}
+      isTyping={isTyping}
+      partner={partner}
     />
   );
 };
