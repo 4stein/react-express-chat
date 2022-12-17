@@ -1,5 +1,5 @@
 # Fullstack react-express websockets chat
-React, Webpack, Express, Websockets
+React, Redux, Webpack, Express, Websockets, MongoDB
 
 ## Available scripts to start application
 
